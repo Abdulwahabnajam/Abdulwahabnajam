@@ -8,10 +8,9 @@ st.write(
     """chose the fruit you want in your custom Smoothie!
     """
 )
-import streamlit as st
-
 name_on_order = st.text_input("Name on Smoothies:")
 st.write("The name on your smoothie will be:", name_on_order)
+
 cnx = st.connections("snowflake")
 session = cnx.session()
 
