@@ -1,5 +1,6 @@
 #Import python packages
 import streamlit as st
+from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
 # Write directly to the app
@@ -8,9 +9,12 @@ st.write(
     """chose the fruit you want in your custom Smoothie!
     """
 )
+cnx = st.connection("snowflake")
+session = cnx.session()
+
 name_on_order = st.text_input("Name on Smoothies:")
 st.write("The name on your smoothie will be:", name_on_order)
-
+session = get_active_session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 
 #st.dataframe(data=my_dataframe, use_container_width=True)
@@ -42,9 +46,9 @@ if ingredients_list:
 	
 
 
-import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response)
+#import requests
+#fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+#st.text(fruityvice_response)
 
 cnx = st.connection("snowflake")
 session = cnx.session() 
